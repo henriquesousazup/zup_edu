@@ -1,0 +1,44 @@
+server:
+  port: 8081
+
+##
+# Feign Client
+##
+feign:
+  client:
+    config:
+      livroClient:
+        loggerLevel: full
+      autorClient:
+        loggerLevel: full
+
+logging:
+  level:
+    org.springframework.web.client: DEBUG
+    com.livraria.client.exposicao.integrations.LivroClient: DEBUG
+    com.livraria.client.exposicao.integrations.AutorClient: DEBUG
+
+##
+# Client Credentials Flow
+##
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          livraria:
+            authorization-grant-type: client_credentials
+            client-id: exposicao-livros-client
+            client-secret: OIe6reTIkUeVzXQQDp0TomTQkdrRLCBS
+            scope: livros:read, autores:read
+        provider:
+          livraria:
+            token-uri: http://localhost:18080/realms/livraria/protocol/openid-connect/token
+
+##
+# Integrations ENV VARS
+##
+integrations:
+  registrationId: livraria
+  autor-url: "http://localhost:8080/oauth2-resourceserver-livraria/api/autores"
+  livro-url: "http://localhost:8080/oauth2-resourceserver-livraria/api/livros"

@@ -1,0 +1,33 @@
+server:
+  port: 8081
+
+##
+# Feign Client
+##
+feign:
+  client:
+    config:
+      gestaoFuncionarioClient:
+        loggerLevel: full
+
+logging:
+  level:
+    org.springframework.web.client: DEBUG
+    com.funcionarios.client.funcionario.integrations.GestaoFuncionarioClient: DEBUG
+
+##
+# Client Credentials Flow
+##
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          gestao-funcionarios:
+            authorization-grant-type: client_credentials
+            client-id: realocacao-squad-client
+            client-secret: iscBHDAhDwh7KV3zYKYm5uAbAW8Syxw8
+            scope: funcionarios:read
+        provider:
+          gestao-funcionarios:
+            token-uri: http://localhost:18080/realms/gestao-funcionarios/protocol/openid-connect/token

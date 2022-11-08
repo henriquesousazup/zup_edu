@@ -1,0 +1,40 @@
+server:
+  port: 8081
+
+##
+# Feign Client
+##
+feign:
+  client:
+    config:
+      albumClient:
+        loggerLevel: full
+
+logging:
+  level:
+    org.springframework.web.client: DEBUG
+    com.album.client.album.integrations.AlbumClient: DEBUG
+
+##
+# Client Credentials Flow
+##
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          albuns:
+            authorization-grant-type: client_credentials
+            client-id: albuns-freemium-client
+            client-secret: 0izZ5HR6CmMphzKlgI3PLW1soizqATqj
+            scope: albuns:read, albuns:write
+        provider:
+          albuns:
+            token-uri: http://localhost:18080/realms/minhas-figurinhas/protocol/openid-connect/token
+
+##
+# Integrations ENV VARS
+##
+integrations:
+  registrationId: albuns
+  resource-server-url: "http://localhost:8080/oauth2-resourceserver-minhas-figurinhas"
